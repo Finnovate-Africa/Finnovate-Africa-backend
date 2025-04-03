@@ -1,0 +1,6 @@
+.qodo
+.env
+node_modules
+status.log
+serviceAccount.json
+
