@@ -12,30 +12,15 @@ import multer from 'multer';
 import ConnectDB from "./src/config/db.config";
 import AppError from "./src/errors/AppError";
 import GlobalErrorHandler from "./src/errors/errorHandler";
-import authRoutes from "./src/routes/auth.routes";
-import userRoutes from "./src/routes/user.routes";
-import productRoutes from "./src/routes/product.routes";
-import reviewRoutes from "./src/routes/reviews.routes";
-import chatRoutes from "./src/routes/chat.routes";
-import withdrawals from "./src/routes/withdrawal.routes";
-import cartRoutes from "./src/routes/cart.routes";
-import paymentRoutes from "./src/routes/payment.routes";
-import orderRoutes from "./src/routes/order.routes";
-import wishlistRoutes from "./src/routes/wishlist.routes";
-import escrowRoutes from "./src/routes/escrow.routes";
-import vendorsRoutes from "./src/routes/vendor.routes";
-import logisticsRoutes from "./src/routes/logistics.routes";
-import specsRoutes from "./src/routes/spec.routes";
-import categoryRoutes from "./src/routes/category.routes";
-import advertisementRoutes from "./src/routes/advertisement.routes";
-import subscriptionRoutes from "./src/routes/subscription.routes";
-import bannerRoutes from "./src/routes/banner.routes";
-import flashSaleRoutes from "./src/routes/flashsale.routes";
+// import authRoutes from "./src/routes/auth.routes";
+// import userRoutes from "./src/routes/user.routes";
+// import productRoutes from "./src/routes/product.routes";
+
 
 import Limiter from "./src/middleware/rateLimit";
 import logger, { logRequest } from "./src/middleware/logger";
 import { COOKIE_SECRET, PORT } from "./src/serviceUrl";
-import passport from "passport";
+
 
 dotenv.config();
 const port = PORT || 8080;
@@ -72,7 +57,6 @@ app.set("view engine", "ejs");
 // app.use(sanitizeInputs);
 app.use(mongoSanitize());
 app.use(logRequest);
-app.use(passport.initialize());
 const shouldCompress = (req: express.Request, res: express.Response) => {
   if (req.headers["x-no-compression"]) {
     // Don't compress responses if this request header is present
@@ -84,30 +68,14 @@ const shouldCompress = (req: express.Request, res: express.Response) => {
 app.use(compression({ filter: shouldCompress }));
 
 //All Routes comes in Here
-app.use("/v1/api/auth", authRoutes);
-app.use("/v1/api/user", userRoutes);
-app.use("/v1/api/product", Limiter, productRoutes);
-app.use("/v1/api/review", Limiter, reviewRoutes);
-app.use("/v1/api/cart", cartRoutes);
-app.use("/v1/api/payment", paymentRoutes);
-app.use("/v1/api/order", orderRoutes);
-app.use("/v1/api/chat", chatRoutes);
-app.use("/v1/api/wishlist", wishlistRoutes);
-app.use("/v1/api/escrow", escrowRoutes);
+// app.use("/v1/api/auth", authRoutes);
+// app.use("/v1/api/user", userRoutes);
+// app.use("/v1/api/product", Limiter, productRoutes);
+// app.use("/v1/api/review", Limiter, reviewRoutes);
+// app.use("/v1/api/cart", cartRoutes);
 
-app.use("/v1/api/payment", paymentRoutes);
-app.use("/v1/api/order", orderRoutes);
-app.use("/v1/api/chat", chatRoutes);
-app.use("/v1/api/withdrawal", withdrawals);
 
-app.use("/v1/api/vendor", vendorsRoutes)
-app.use("/v1/api/logistics", logisticsRoutes)
-app.use("/v1/api/category", categoryRoutes)
-app.use("/v1/api/spec", specsRoutes)
-app.use("/v1/api/ads", advertisementRoutes)
-app.use("/v1/api/subscription", subscriptionRoutes)
-app.use("/v1/api/banner", bannerRoutes);
-app.use("/v1/api/flashsale", flashSaleRoutes);
+
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.send("Hi");
